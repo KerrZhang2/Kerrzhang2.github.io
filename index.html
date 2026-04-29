@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChinaFood SPB — китайские рестораны Санкт-Петербурга</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header class="hero" id="home">
+  <nav class="navbar">
+    <a class="logo" href="index.html">🥢 ChinaFood SPB</a>
+    <div class="nav-links">
+      <a href="#about">О проекте</a>
+      <a href="#categories">Категории</a>
+      <a href="#restaurants">Рестораны</a>
+      <a href="#map">Карта</a>
+      <a href="#reviews">Отзывы</a>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <p class="tag">Для китайцев в Санкт-Петербурге</p>
+    <h1>Рекомендации китайских ресторанов в Петербурге</h1>
+    <p class="lead">Выберите ресторан по типу кухни, району, среднему чеку, отзывам и индексу рекомендации. Нажмите на название ресторана, чтобы открыть отдельную страницу с полной информацией.</p>
+    <div class="search-box">
+      <input id="searchInput" list="restaurantSuggestions" type="text" placeholder="Введите название ресторана: Tianxi, Тан Жэн, Макао..."/>\n      <datalist id="restaurantSuggestions"></datalist>
+      <select id="categorySelect">
+        <option value="all">Все категории</option>
+        <option value="Хого">Хого</option>
+        <option value="Сычуаньская кухня">Сычуаньская кухня</option>
+        <option value="Китайская кухня">Китайская кухня</option>
+        <option value="Лапша">Лапша</option>
+        <option value="Фьюжн">Фьюжн</option>
+      </select>
+      <select id="priceSelect">
+        <option value="all">Любой чек</option>
+        <option value="low">До 1000 ₽</option>
+        <option value="mid">1000–1700 ₽</option>
+        <option value="high">От 1700 ₽</option>
+      </select>
+      <button onclick="goToRestaurantFromSearch()">Открыть</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="stats">
+  <div><strong>17</strong><span>ресторанов в базе</span></div>
+  <div><strong>6</strong><span>новых ресторанов из скриншотов</span></div>
+  <div><strong>100</strong><span>максимальный индекс рекомендации</span></div>
+  <div><strong>1</strong><span>страница для каждого ресторана</span></div>
+</section>
+
+<section id="about" class="section about">
+  <div>
+    <p class="mini-title">Идея проекта</p>
+    <h2>Почему нужен такой сайт?</h2>
+    <p>Китайским студентам, туристам и жителям Санкт-Петербурга часто сложно быстро понять, где есть настоящая китайская кухня, какой средний чек, какие блюда заказать и насколько ресторан подходит для компании.</p>
+    <p>На сайте есть поиск, фильтр по категориям, адреса, фотографии, рейтинг, комментарии и отдельная страница с полной информацией о каждом ресторане.</p>
+  </div>
+  <div class="formula-card">
+    <h3>Что добавлено по вашим скриншотам</h3>
+    <ul>
+      <li>Tianxi — Кораблестроителей, 30 — 4.7/5</li>
+      <li>Гуи — Малый проспект В.О., 33 — 4.5/5</li>
+      <li>Тан Жэн — Невский проспект, 74–76Г — 4.7/5</li>
+      <li>Рамен Шифу — Загородный проспект, 2 — 5.0/5</li>
+      <li>Макао — Кораблестроителей, 32 корп. 1 — 4.5/5</li>
+      <li>Чуфальня — Кораблестроителей, 34 — 4.3/5</li>
+    </ul>
+  </div>
+</section>
+
+<section id="categories" class="section section-light">
+  <div class="section-title"><p>Категории</p><h2>Основные типы ресторанов</h2></div>
+  <div class="category-grid">
+    <article><img src="assets/r_86hogo.jpg"><h3>🔥 Хого</h3><p>Горячий котёл для компании: мясо, овощи, лапша, острый и неострый бульон.</p></article>
+    <article><img src="assets/r_sichuan.jpg"><h3>🌶 Сычуаньская кухня</h3><p>Острые блюда, перец, мапо тофу и насыщенный вкус.</p></article>
+    <article><img src="assets/tanzhen_real.jpg"><h3>🥟 Китайская кухня</h3><p>Классические блюда, рис, лапша, супы, закуски и домашний формат.</p></article>
+    <article><img src="assets/ramen_shifu_real.jpg"><h3>🍜 Лапша</h3><p>Быстрый обед: лапша, рамен, рисовые блюда и небольшие кафе.</p></article>
+  </div>
+</section>
+
+<section id="restaurants" class="section">
+  <div class="section-title"><p>База ресторанов</p><h2>Нажмите на название ресторана для подробностей</h2></div>
+  <div class="tools">
+    <button onclick="sortByIndex()">Сортировать по рекомендации</button>
+    <button onclick="sortByPrice()">Сортировать по цене</button>
+    <button onclick="showAll()">Показать все</button>
+  </div>
+  <div id="restaurantList" class="restaurant-grid"></div>
+</section>
+
+<section id="map" class="section section-light">
+  <div class="section-title"><p>Карта</p><h2>Более понятная карта ресторанов Санкт-Петербурга</h2></div>
+  <img class="big-map" src="assets/spb_restaurant_map_clear.jpg" alt="Карта китайских ресторанов в Санкт-Петербурге">
+  <div class="map-layout">
+    <div class="map-list" id="mapList"></div>
+    <div class="map-frame">
+      <iframe title="OpenStreetMap Saint Petersburg"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=30.174%2C59.855%2C30.515%2C60.055&layer=mapnik&marker=59.9343%2C30.3351">
+      </iframe>
+      <p>Интерактивная карта работает при наличии интернета.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="section">
+  <div class="section-title"><p>Отзывы</p><h2>Оставить комментарий</h2></div>
+  <div class="review-box">
+    <input id="userName" placeholder="Ваше имя">
+    <select id="restaurantName"></select>
+    <select id="rating"><option value="5">5 — отлично</option><option value="4">4 — хорошо</option><option value="3">3 — нормально</option><option value="2">2 — плохо</option><option value="1">1 — очень плохо</option></select>
+    <textarea id="comment" placeholder="Напишите отзыв о вкусе, цене, атмосфере или обслуживании..."></textarea>
+    <button onclick="addReview()">Добавить отзыв</button>
+  </div>
+  <div id="reviewList" class="review-list"></div>
+</section>
+</main>
+
+<footer>
+  <p>© 2026 ChinaFood SPB. Учебный проект-рекомендация китайских ресторанов Санкт-Петербурга.</p>
+</footer>
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
